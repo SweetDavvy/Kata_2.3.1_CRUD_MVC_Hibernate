@@ -25,46 +25,46 @@ public class UserController {
     }
 
     @GetMapping(value = "users")
-    public String allUsers(ModelMap model) {
-        model.addAttribute("users", userService.index());
+    public String showAllUsersFromDataBase(ModelMap model) {
+        model.addAttribute("users", userService.showAllUsers());
         return "users";
     }
 
     @GetMapping(value = "users/add")
-    public String addUser(Model model) {
+    public String addNewUser(Model model) {
         User user = new User();
         model.addAttribute("user", user);
         return "new";
     }
 
     @PostMapping(value = "users/add")
-    public String addUser(@ModelAttribute("user") User user) {
-        userService.add(user);
+    public String addNewUserToDataBase(@ModelAttribute("user") User user) {
+        userService.addNewUser(user);
         return "redirect:/users";
     }
 
     @GetMapping(value = "users/edit/{id}")
-    public String editUser(ModelMap model, @PathVariable("id") Long id) {
-        User user = userService.show(id);
+    public String editUserById(ModelMap model, @PathVariable("id") Long id) {
+        User user = userService.showUserById(id);
         model.addAttribute("user", user);
         return "edit";
     }
 
     @PostMapping(value = "users/edit")
-    public String edit(@ModelAttribute("user") User user) {
-        userService.update(user);
+    public String updateUser(@ModelAttribute("user") User user) {
+        userService.updateCurrentUser(user);
         return "redirect:/users";
     }
 
     @GetMapping("users/delete/{id}")
     public String deleteUserById(@PathVariable("id") Long id) {
-        userService.delete(id);
+        userService.deleteUserById(id);
         return "redirect:/users";
     }
 
     @GetMapping("users/{id}")
-    public String show(@PathVariable("id") Long id, ModelMap modelMap) {
-        modelMap.addAttribute("user", userService.show(id));
+    public String showAllUsers(@PathVariable("id") Long id, ModelMap modelMap) {
+        modelMap.addAttribute("user", userService.showUserById(id));
         return "show";
     }
 }

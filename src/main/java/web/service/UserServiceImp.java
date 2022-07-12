@@ -19,31 +19,31 @@ public class UserServiceImp implements UserService {
         this.userDao = userDao;
     }
 
-    public void add(User user) {
+    public void addNewUser(User user) {
 
-        userDao.add(user);
+        userDao.addUserToDataBase(user);
     }
 
     @Transactional(readOnly = true)
-    public List<User> index() {
+    public List<User> showAllUsers() {
 
-        return userDao.index();
+        return userDao.showAllUsersInDataBase();
     }
 
     @Transactional(readOnly = true)
-    public User show(Long id) {
+    public User showUserById(Long id) {
 
-        return userDao.show(id);
+        return userDao.showUserByIdFromDataBase(id);
     }
 
-    public void update(User updatedUser) {
+    public void updateCurrentUser(User updatedUser) {
 
-        userDao.update(updatedUser);
+        userDao.updateUserInDataBase(updatedUser);
     }
 
-    public void delete(Long id) {
+    public void deleteUserById(Long id) {
 
-        userDao.delete(id);
+        userDao.deleteUserByIdInDataBase(id);
     }
 
 }
